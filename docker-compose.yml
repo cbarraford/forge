@@ -1,0 +1,21 @@
+version: '3'
+
+services:
+  forge:
+    image: golang:alpine
+    volumes:
+      - ~:/root
+      - .:/root/src/github.com/cbarraford/forge
+    working_dir: /root/src/github.com/cbarraford/forge
+    env_file:
+      - .env
+    environment:
+      GOPATH: /root
+  lint:
+    image: supinf/golangci-lint
+    volumes:
+      - ~:/root
+      - .:/root/src/github.com/cbarraford/forge
+    working_dir: /root/go/src/github.com/cbarraford/forge
+    environment:
+      GOPATH: /root
