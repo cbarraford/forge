@@ -47,7 +47,7 @@ func NewWithCreds(clientId, clientSecret string) (Client, error) {
 		clientSecret: clientSecret,
 		baseURL:      "https://developer.api.autodesk.com", // TODO: don't hard code the base URL
 		client: &http.Client{
-			Timeout: time.Second * 60, // TODO: don't hard code the timeout
+			Timeout: time.Second * 0, // TODO: don't hard code the timeout
 		},
 	}, nil
 }
