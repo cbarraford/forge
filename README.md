@@ -10,6 +10,17 @@ secret`.
 Once you have these keys, put them in a `.env` at the root of this project.
 
 ```
-FORGE_CLIENT_ID=XXXXXXXX
-FORGE_CLIENT_SECRET=XXXXXXXXX
+export FORGE_CLIENT_ID=XXXXXXXX
+export FORGE_CLIENT_SECRET=XXXXXXXXX
 ```
+
+## Development
+
+#### Run tests
+
+```sh
+go test
+```
+
+## TODO
+ * Setup a mock Autodesk API for testing instead of making real calls.

@@ -1,7 +1,9 @@
-test:
+.PHONY: test-docker test lint
+
+test-docker:
 	@docker-compose run --rm forge go test ./...
 
-test-local:
+test:
 	go test ./...
 
 lint:

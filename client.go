@@ -7,8 +7,11 @@ import (
 	"net/http"
 	"net/url"
 	"os"
+	"strings"
 	"time"
 )
+
+var notImplemented error = fmt.Errorf("Not yet implimented.")
 
 // Autodesk API Client. Use this to authenticate and make API calls to the
 // Autodesk API
@@ -55,6 +58,8 @@ func (cl *Client) Path(p string) string {
 }
 
 // Authenticate our forge client to be able to make API calls
+// For a full list of possible scopes, see
+// https://forge.autodesk.com/en/docs/oauth/v2/developers_guide/scopes/
 func (cl *Client) Authenticate(scopes []string) error {
 	if len(scopes) == 0 {
 		return fmt.Errorf("Must have at least one scope defined (ie `data:read` and/or `bucket:create`)")
@@ -66,7 +71,7 @@ func (cl *Client) Authenticate(scopes []string) error {
 		"grant_type":    {grant_type},
 		"client_id":     {cl.clientId},
 		"client_secret": {cl.clientSecret},
-		"scope":         scopes,
+		"scope":         {strings.Join(scopes[:], " ")},
 	}
 
 	resp, err := cl.client.PostForm(u, values)
@@ -88,4 +93,29 @@ func (cl *Client) Authenticate(scopes []string) error {
 
 	cl.scopes = scopes
 	return nil
+}
+
+// Retrieve the authenticated access token
+func (cl *Client) GetAccessToken() string {
+	return cl.jwt.AccessToken
+}
+
+// Check if our authenticated scopes have given scope
+func (cl *Client) CheckScope(scope string) bool {
+	for _, s := range cl.scopes {
+		if scope == s {
+			return true
+		}
+	}
+	return false
+}
+
+// Check if our authenticated scopes have all of the given scopes
+func (cl *Client) CheckScopes(scopes []string) bool {
+	for _, scope := range scopes {
+		if !cl.CheckScope(scope) {
+			return false
+		}
+	}
+	return true
 }

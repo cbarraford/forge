@@ -1,7 +1,7 @@
 package forge
 
 import (
-	"log"
+	"fmt"
 	"time"
 )
 
@@ -13,10 +13,13 @@ type JWT struct {
 }
 
 func (jwt *JWT) IsExpired() bool {
-	log.Printf("%+v", jwt.ExpiresAt)
 	return jwt.ExpiresAt.UnixNano() < time.Now().UnixNano()
 }
 
 func (jwt *JWT) SetExpiration() {
 	jwt.ExpiresAt = time.Now().Add(time.Second * time.Duration(jwt.ExpiresIn))
+}
+
+func (jwt *JWT) GetAuthHeader() string {
+	return fmt.Sprintf("%s %s", jwt.TokenType, jwt.AccessToken)
 }
