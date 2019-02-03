@@ -96,8 +96,8 @@ func (cl *Client) Authenticate(scopes []string) error {
 }
 
 // Retrieve the authenticated access token
-func (cl *Client) GetAccessToken() string {
-	return cl.jwt.AccessToken
+func (cl *Client) GetAccessToken() JWT {
+	return cl.jwt
 }
 
 // Check if our authenticated scopes have given scope
