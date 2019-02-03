@@ -1,6 +1,7 @@
 package forge
 
 import (
+	"encoding/base64"
 	"encoding/json"
 	"fmt"
 	"io/ioutil"
@@ -16,18 +17,20 @@ type Manifest struct {
 }
 
 // Get the manifest of a job
-func (cl *Client) Manifest(urn string) (Manifest, error) {
+func (cl *Client) Manifest(u string) (Manifest, error) {
 	mani := Manifest{}
 
-	if urn == "" {
+	if u == "" {
 		return mani, fmt.Errorf("Must have an URN")
 	}
 
-	u := cl.Path(
-		fmt.Sprintf("/modelderivative/v2/designdata/%s/manifest", urn),
+	sEnc := base64.StdEncoding.EncodeToString([]byte(u))
+
+	p := cl.Path(
+		fmt.Sprintf("/modelderivative/v2/designdata/%s/manifest", sEnc),
 	)
 
-	req, err := http.NewRequest("GET", u, nil)
+	req, err := http.NewRequest("GET", p, nil)
 	if err != nil {
 		return mani, err
 	}
@@ -45,12 +48,9 @@ func (cl *Client) Manifest(urn string) (Manifest, error) {
 	}
 
 	if resp.StatusCode >= 400 {
-		log.Printf("Failed to create job, got http error %d", resp.StatusCode)
+		log.Printf("Failed to get manifest, got http error %d", resp.StatusCode)
 		return mani, fmt.Errorf(string(body))
 	}
-
-	log.Printf("Manifest: %s", string(body))
-	return mani, nil
 
 	err = json.Unmarshal(body, &mani)
 	if err != nil {
