@@ -1,6 +1,11 @@
 # Forge
 Autodesk API Client for golang.
 
+## Status
+This project is consider "early phase", and therefore may not implement all
+aspects of the Forge API, is subject to change, and may not have detail tests
+written.
+
 ## Setup
 You'll need to [create an
 app](https://forge.autodesk.com/en/docs/oauth/v2/tutorials/create-app/) in
