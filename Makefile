@@ -1,4 +1,4 @@
-.PHONY: test-docker test lint
+.PHONY: test-docker test lint lint-local
 
 GO ?= go
 TESTFOLDER := $(shell $(GO) list ./... | grep -E 'gin$$|binding$$|render$$' | grep -v examples)
@@ -15,3 +15,6 @@ test-cover:
 
 lint:
 	@docker-compose run --rm lint run ./...
+
+lint-local:
+	golangci-lint run

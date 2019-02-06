@@ -6,10 +6,11 @@ go_import_path: github.com/cbarraford/forge
 
 before_install:
   - touch .env
-  - go get
+  - go get -u github.com/golangci/golangci-lint/cmd/golangci-lint
+  - go get -u gopkg.in/check.v1
 
 script:
-  - make lint
+  - make lint-local
   - make test-cover
 
 after_success:
