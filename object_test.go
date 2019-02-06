@@ -47,6 +47,7 @@ func (s *ObjectSuite) TestCreateObject(c *C) {
 	}
 
 	file, err := os.Open(filepath)
+	c.Assert(err, IsNil)
 	err = client.ObjectUpload(&obj, file)
 	c.Assert(err, IsNil)
 	c.Check(len(obj.Location) > 0, Equals, true)
