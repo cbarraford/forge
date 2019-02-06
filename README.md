@@ -19,6 +19,19 @@ export FORGE_CLIENT_ID=XXXXXXXX
 export FORGE_CLIENT_SECRET=XXXXXXXXX
 ```
 
+Once, you've done that you can create a `Client` via...
+
+```go
+client, err := forge.New()
+```
+
+
+Alternatively, you pass your creds in your code and receive a `Client`.
+
+```go
+client, err := forge.NewWithCreds("IDXXXX", "SECRETXXXX")
+```
+
 ## Development
 
 #### Run tests
