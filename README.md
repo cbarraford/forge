@@ -1,3 +1,4 @@
+[![Build Status](https://travis-ci.org/cbarraford/forge.svg?branch=master)](https://travis-ci.org/cbarraford/forge)
 [![GoDoc](https://godoc.org/github.com/cbarraford/forge?status.svg)](https://godoc.org/github.com/cbarraford/forge)
 
 # Forge
