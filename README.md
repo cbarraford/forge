@@ -1,3 +1,5 @@
+[![GoDoc](https://godoc.org/github.com/cbarraford/forge?status.svg)](https://godoc.org/github.com/cbarraford/forge)
+
 # Forge
 Autodesk API Client for golang.
 
