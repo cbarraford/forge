@@ -100,6 +100,11 @@ func (cl *Client) GetAccessToken() JWT {
 	return cl.jwt
 }
 
+// Check if token is expired
+func (cl *Client) IsExpired() bool {
+	return cl.jwt.IsExpired()
+}
+
 // Check if our authenticated scopes have given scope
 func (cl *Client) CheckScope(scope string) bool {
 	for _, s := range cl.scopes {
